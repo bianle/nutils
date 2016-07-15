@@ -1,0 +1,33 @@
+{{#extend "stylesheets"}}
+
+{{/extend}}
+<h1>{{title}}</h1>
+<textarea name="src" id="src" cols="30" rows="10"></textarea>
+<br/>
+<input type="button" id="toCamelCaseBtn" value="a_b -> aB">
+<input type="button" id="toUpperCaseBtn" value="ab -> AB">
+<input type="button" id="toLowerCaseBtn" value="AB -> ab">
+<br/>
+<textarea name="dist" id="dist" cols="30" rows="10"></textarea>
+
+<script type="text/javascript">
+    var toCamelCase = function(s){
+        s = s.toLowerCase();
+        var re=/_(\w)/g;
+        return s.replace(re,function(){
+            var args=arguments;
+            return args[1].toUpperCase();
+        });
+    };
+
+    $("#toCamelCaseBtn").click(function(){
+        $("#dist").val(toCamelCase($("#src").val()));
+    });
+    $("#toUpperCaseBtn").click(function(){
+        $("#dist").val(($("#src").val().toUpperCase()));
+    });
+    $("#toLowerCaseBtn").click(function(){
+        $("#dist").val(($("#src").val().toLowerCase()));
+    });
+
+</script>

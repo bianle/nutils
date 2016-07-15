@@ -1,0 +1,24 @@
+{
+  "name": "nutils",
+  "description": "node utils",
+  "main": "app.js",
+  "authors": [
+    "bianle <229371515@qq.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "le.im",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
