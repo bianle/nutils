@@ -11,4 +11,9 @@ router.get('/w2w', function(req, res, next) {
   var menu = {checked : "w2w" , menus : menus};
   res.render('w2w', { title: 'W2W' ,menu:menu});
 });
+router.post('/test', function(req, res, next) {
+  console.log(req.body);
+  res.send('respond with a resource');
+});
+
 module.exports = router;

@@ -1,14 +1,19 @@
 {{#extend "stylesheets"}}
-
+    <script src="javascripts/utils/ascii2native.js"></script>
 {{/extend}}
 <h1>{{title}}</h1>
-<textarea name="src" id="src" cols="30" rows="10"></textarea>
+<textarea name="src" id="src" cols="100" rows="10"></textarea>
 <br/>
-<input type="button" id="toCamelCaseBtn" value="a_b -> aB">
-<input type="button" id="toUpperCaseBtn" value="ab -> AB">
-<input type="button" id="toLowerCaseBtn" value="AB -> ab">
+<input type="button" id="toCamelCaseBtn" class="btn btn-xs btn-primary" value="a_b -> aB">
+<input type="button" id="toUnderScoreCaseBtn" class="btn btn-xs btn-primary" value="aB -> a_b">
+<input type="button" id="toUpperCaseBtn" class="btn btn-xs btn-primary" value="ab -> AB">
+<input type="button" id="toLowerCaseBtn" class="btn btn-xs btn-primary" value="AB -> ab">
+<input type="button" id="toNativeBtn" class="btn btn-xs btn-primary" value="ascii -> native">
+<input type="button" id="replaceBtn" class="btn btn-xs btn-primary" value="replace">
+<input type="button" id="htmlEncodeBtn" class="btn btn-xs btn-primary" value="html encode">
+<input type="button" id="htmlDecodeBtn" class="btn btn-xs btn-primary" value="html decode">
 <br/>
-<textarea name="dist" id="dist" cols="30" rows="10"></textarea>
+<textarea name="dist" id="dist" cols="100" rows="10"></textarea>
 
 <script type="text/javascript">
     var toCamelCase = function(s){
@@ -19,15 +24,51 @@
             return args[1].toUpperCase();
         });
     };
+    var toUnderScoreCase = function(s){
+        var re=/[A-Z]/g;
+        return s.replace(re,function(){
+            return "_"+arguments[0];
+        }).toUpperCase();
+    };
+
+    var htmlEncode = function (str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/</g, "&lt;");
+        s = s.replace(/>/g, "&gt;");
+        return s;
+    }
+    var htmlDecode = function (str) {
+        var s = "";
+        if (str.length == 0) return "";
+        s = str.replace(/&lt;/g, "<");
+        s = s.replace(/&gt;/g, ">");
+        return s;
+    }
 
     $("#toCamelCaseBtn").click(function(){
         $("#dist").val(toCamelCase($("#src").val()));
+    });
+    $("#toUnderScoreCaseBtn").click(function(){
+        $("#dist").val(toUnderScoreCase($("#src").val()));
     });
     $("#toUpperCaseBtn").click(function(){
         $("#dist").val(($("#src").val().toUpperCase()));
     });
     $("#toLowerCaseBtn").click(function(){
         $("#dist").val(($("#src").val().toLowerCase()));
+    });
+    $("#toNativeBtn").click(function(){
+        $("#dist").val(ascii2native($("#src").val()));
+    });
+    $("#replaceBtn").click(function(){
+        $("#dist").val($("#src").val().replace(new RegExp("\\\\n","gm"),"\n"));
+    });
+    $("#htmlEncodeBtn").click(function(){
+        $("#dist").val(htmlEncode($("#src").val()));
+    });
+    $("#htmlDecodeBtn").click(function(){
+        $("#dist").val(htmlDecode($("#src").val()));
     });
 
 </script>
